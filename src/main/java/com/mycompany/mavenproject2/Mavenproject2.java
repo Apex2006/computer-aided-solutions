@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject2;
 
+import com.mycompany.mavenproject2.ui.CasApp;
 import javafx.application.Application;
 
 /**

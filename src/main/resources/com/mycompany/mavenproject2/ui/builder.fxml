@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Guide Builder: create or edit a guide, save it as a draft or submit it (Sequence 2). @author Luis Gabriel Santiago -->
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.mavenproject2.ui.BuilderController"
+            fitToWidth="true" hbarPolicy="NEVER">
+    <VBox styleClass="page">
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label fx:id="titleLabel" text="Create a Guide" styleClass="h1"/>
+                <Label text="Share a computer-aided fix for an everyday problem. Save a draft any time; submit when every part is filled in."
+                       styleClass="muted" wrapText="true"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="22">
+            <!-- Left: the guide content -->
+            <VBox styleClass="card" spacing="14" HBox.hgrow="ALWAYS">
+                <padding><Insets top="22" right="24" bottom="24" left="24"/></padding>
+                <Label text="Basics" styleClass="h2"/>
+                <VBox spacing="5">
+                    <Label text="Title" styleClass="bold,small"/>
+                    <TextField fx:id="titleField" promptText="e.g. Automatic Plant Watering System"/>
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Summary" styleClass="bold,small"/>
+                    <TextArea fx:id="summaryArea" prefRowCount="3" wrapText="true"
+                              promptText="What problem does this solve, and how?"/>
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Parts and materials (one per line)" styleClass="bold,small"/>
+                    <TextArea fx:id="partsArea" prefRowCount="5" wrapText="true"
+                              promptText="Arduino Uno&#10;Soil moisture sensor&#10;5V relay module"/>
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Precautions (one per line)" styleClass="bold,small"/>
+                    <TextArea fx:id="precautionsArea" prefRowCount="3" wrapText="true"
+                              promptText="Unplug the power before changing any wiring."/>
+                </VBox>
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="Steps, in order" styleClass="bold,small"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="Add a photo to any step (optional)" styleClass="faint,tiny"/>
+                    </HBox>
+                    <VBox fx:id="stepsList" spacing="10"/>
+                    <Button fx:id="addStepButton" text="Add a step" styleClass="btn-outline" onAction="#onAddStep"/>
+                </VBox>
+            </VBox>
+
+            <!-- Right: settings, image and actions -->
+            <VBox spacing="18" prefWidth="330" minWidth="330" maxWidth="330">
+                <VBox styleClass="card" spacing="12">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label text="Details" styleClass="h2"/>
+                    <VBox spacing="5">
+                        <Label text="Category" styleClass="bold,small"/>
+                        <ComboBox fx:id="categoryBox" maxWidth="Infinity" promptText="Pick a category"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Difficulty" styleClass="bold,small"/>
+                        <ComboBox fx:id="difficultyBox" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Risk factor" styleClass="bold,small"/>
+                        <ComboBox fx:id="riskBox" maxWidth="Infinity"/>
+                    </VBox>
+                    <Label fx:id="riskNote" styleClass="small" wrapText="true"/>
+                    <VBox spacing="5">
+                        <Label text="Estimated cost in pesos (optional)" styleClass="bold,small"/>
+                        <TextField fx:id="costField" promptText="e.g. 850"/>
+                    </VBox>
+                </VBox>
+
+                <VBox styleClass="card" spacing="10">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label text="Cover image (optional)" styleClass="h2"/>
+                    <StackPane fx:id="imageHolder" prefHeight="160" styleClass="card">
+                        <ImageView fx:id="imagePreview" fitWidth="288" fitHeight="156" preserveRatio="true"/>
+                        <Label fx:id="noImageLabel" text="No image yet" styleClass="faint"/>
+                    </StackPane>
+                    <HBox spacing="8">
+                        <Button fx:id="chooseImageButton" text="Choose image" styleClass="btn-outline" onAction="#onChooseImage"/>
+                        <Button fx:id="removeImageButton" text="Remove" styleClass="btn-text-danger" onAction="#onRemoveImage"/>
+                    </HBox>
+                    <Label text="JPG or PNG. Big photos are shrunk automatically (5 MB limit)." styleClass="faint,tiny" wrapText="true"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="10">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label text="Video and schematic" styleClass="h2"/>
+                    <VBox spacing="5">
+                        <Label text="Video link" styleClass="bold,small"/>
+                        <TextField fx:id="videoField" promptText="https://youtu.be/..."/>
+                        <Label text="A YouTube, Facebook, TikTok or Google Drive link. It opens in the browser."
+                               styleClass="faint,tiny" wrapText="true"/>
+                    </VBox>
+                    <Label text="Schematic or wiring diagram" styleClass="bold,small"/>
+                    <StackPane fx:id="schematicHolder" prefHeight="140" styleClass="card">
+                        <ImageView fx:id="schematicPreview" fitWidth="288" fitHeight="136" preserveRatio="true"/>
+                        <Label fx:id="noSchematicLabel" text="No schematic yet" styleClass="faint"/>
+                    </StackPane>
+                    <HBox spacing="8">
+                        <Button fx:id="chooseSchematicButton" text="Choose schematic" styleClass="btn-outline" onAction="#onChooseSchematic"/>
+                        <Button text="Remove" styleClass="btn-text-danger" onAction="#onRemoveSchematic"/>
+                    </HBox>
+                    <Label fx:id="mediaSizeLabel" styleClass="faint,tiny" wrapText="true"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="10">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label fx:id="errorLabel" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+                    <Button fx:id="submitButton" text="Submit Guide" styleClass="btn-primary" maxWidth="Infinity" onAction="#onSubmit"/>
+                    <Button fx:id="draftButton" text="Save Draft" styleClass="btn-outline" maxWidth="Infinity" onAction="#onSaveDraft"/>
+                    <Button text="Cancel" styleClass="btn-text" maxWidth="Infinity" onAction="#onCancel"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <Region prefHeight="10"/>
+    </VBox>
+</ScrollPane>

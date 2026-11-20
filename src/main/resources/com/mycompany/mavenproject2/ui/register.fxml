@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.mycompany.mavenproject2.ui.BrandPanel?>
+
+<!-- Registration form, step 1 of 2 (Sequence 1). @author Luis Gabriel Santiago -->
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.mavenproject2.ui.RegisterController">
+    <BrandPanel/>
+    <StackPane HBox.hgrow="ALWAYS">
+        <VBox styleClass="auth-card" spacing="12" maxWidth="440" maxHeight="-Infinity">
+            <padding><Insets top="30" right="34" bottom="28" left="34"/></padding>
+            <Label text="STEP 1 OF 2" styleClass="section-label,green-text"/>
+            <Label text="Create your account" styleClass="h1"/>
+            <Label text="It takes a minute. Next, you'll pick who you are and what you like to fix."
+                   styleClass="muted" wrapText="true"/>
+
+            <VBox spacing="5">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+                <Label text="Full name" styleClass="bold,small"/>
+                <TextField fx:id="fullNameField" promptText="Juan Dela Cruz"/>
+            </VBox>
+            <HBox spacing="12">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Username" styleClass="bold,small"/>
+                    <TextField fx:id="usernameField" promptText="juan.delacruz"/>
+                </VBox>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Email" styleClass="bold,small"/>
+                    <TextField fx:id="emailField" promptText="you@email.com"/>
+                </VBox>
+            </HBox>
+            <HBox spacing="12">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Password" styleClass="bold,small"/>
+                    <PasswordField fx:id="passwordField" promptText="At least 8 characters"/>
+                </VBox>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Confirm password" styleClass="bold,small"/>
+                    <PasswordField fx:id="confirmField" promptText="Type it again"/>
+                </VBox>
+            </HBox>
+
+            <Label fx:id="errorLabel" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+
+            <Button fx:id="nextButton" text="Next: About you" styleClass="btn-primary" maxWidth="Infinity"
+                    defaultButton="true" onAction="#onNext">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+            </Button>
+            <HBox alignment="CENTER" spacing="4">
+                <Label text="Already have an account?" styleClass="muted"/>
+                <Hyperlink text="Log in" onAction="#onLogin"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</HBox>
