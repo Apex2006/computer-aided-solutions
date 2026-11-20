@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.mycompany.mavenproject2.BrandPanel?>
+
+<!-- Registration step 2 of 2: identity and niches (Sequence 1). @author Luis Gabriel Santiago -->
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.mavenproject2.OnboardingController">
+    <BrandPanel/>
+    <StackPane HBox.hgrow="ALWAYS">
+        <VBox styleClass="auth-card" spacing="12" maxWidth="560" maxHeight="-Infinity">
+            <padding><Insets top="30" right="34" bottom="28" left="34"/></padding>
+            <Label text="STEP 2 OF 2" styleClass="section-label,green-text"/>
+            <Label text="Tell us about you" styleClass="h1"/>
+            <Label text="Your identity helps keep expert ratings fair. Your niches shape what you see on Home."
+                   styleClass="muted" wrapText="true"/>
+
+            <Label text="I am a..." styleClass="h3">
+                <VBox.margin><Insets top="8"/></VBox.margin>
+            </Label>
+            <TilePane fx:id="identityPane" hgap="10" vgap="10" prefColumns="2" prefTileWidth="240"/>
+
+            <Label text="My niches (pick at least one)" styleClass="h3">
+                <VBox.margin><Insets top="8"/></VBox.margin>
+            </Label>
+            <FlowPane fx:id="nichePane" hgap="8" vgap="8"/>
+
+            <Label fx:id="errorLabel" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <VBox.margin><Insets top="10"/></VBox.margin>
+                <Button text="Back" styleClass="btn-outline" onAction="#onBack"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="createButton" text="Create account" styleClass="btn-primary"
+                        defaultButton="true" onAction="#onCreate"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</HBox>

@@ -1,0 +1,101 @@
+=== Computer-Aided Solutions: Backend Progress Demo ===
+
+[1. Database connection]
+    Connected to cas_db on gateway01.ap-southeast-1.prod.aws.tidbcloud.com
+
+[2. Login (Sequence 1)]
+    admin          logged in as ADMIN, identity PROFESSIONAL
+    prof_sample    logged in as EXPERT, identity EDUCATOR
+    student_test   logged in as USER, identity STUDENT
+    pro_test       logged in as USER, identity PROFESSIONAL
+    hobby_test     logged in as USER, identity HOBBYIST
+    educator_test  logged in as USER, identity EDUCATOR
+    student_test with a wrong password: rejected
+    prof_sample badge: Expert, Admin approved
+
+[3. Browsing, search and dashboard]
+    Published guides:
+      #10 Solar Phone Charging Station [ENERGY_SAVING, MODERATE risk, PUBLISHED] by educator_test
+      #9 Pet Water Bowl Refill Alert [PETS, LOW risk, PUBLISHED] by student_test
+      #8 Bedroom Air Quality Monitor [HEALTH_WELLNESS, MODERATE risk, PUBLISHED] by educator_test
+      #7 Laundry Done Notifier [HOUSEKEEPING, LOW risk, PUBLISHED] by pro_test
+      #6 Motion-Activated Hallway Light [ENERGY_SAVING, MODERATE risk, PUBLISHED] by educator_test
+      #5 Smart Power Strip with Usage Monitor [ENERGY_SAVING, HIGH risk, PUBLISHED] by pro_test
+      #2 Door Sensor Alarm with Buzzer [HOME_SECURITY, LOW risk, PUBLISHED] by pro_test
+      #1 Automatic Plant Watering System [GARDENING, LOW risk, PUBLISHED] by hobby_test
+    Search "door alarm":
+      #2 Door Sensor Alarm with Buzzer [HOME_SECURITY, LOW risk, PUBLISHED] by pro_test
+    Dashboard for student_test, niches [GARDENING, ENERGY_SAVING, HOME_SECURITY]:
+      #10 Solar Phone Charging Station [ENERGY_SAVING, MODERATE risk, PUBLISHED] by educator_test
+      #6 Motion-Activated Hallway Light [ENERGY_SAVING, MODERATE risk, PUBLISHED] by educator_test
+      #5 Smart Power Strip with Usage Monitor [ENERGY_SAVING, HIGH risk, PUBLISHED] by pro_test
+      #2 Door Sensor Alarm with Buzzer [HOME_SECURITY, LOW risk, PUBLISHED] by pro_test
+      #1 Automatic Plant Watering System [GARDENING, LOW risk, PUBLISHED] by hobby_test
+
+[4. Creating a guide and saving drafts (Sequence 2)]
+    Save Draft   -> #11 Cleaning a Laptop Fan [HOUSEKEEPING, LOW risk, DRAFT] by hobby_test
+    Submit an unfinished guide -> blocked: Fill in the summary, parts, precautions and steps before submitting.
+    Submit a HIGH risk guide as a normal user -> PENDING
+
+[5. Expert approval (Sequence 4)]
+    Pending guides:
+      #3 Rice Cooker Auto-Off Timer [FOOD_COOKING, HIGH risk, PENDING] by student_test
+      #12 Replacing a Ceiling Fan Switch [HOUSEKEEPING, HIGH risk, PENDING] by hobby_test
+    student_test tries to approve -> blocked: Only experts can approve guides.
+    prof_sample approves (risk HIGH, Y) -> PUBLISHED, approval Y
+    A second decision on the same guide -> blocked: This guide was already reviewed by another expert.
+
+[6. Reviews and the stratified expert rating (Sequence 3)]
+    Guide: #1 Automatic Plant Watering System [GARDENING, LOW risk, PUBLISHED] by hobby_test
+      Approve from educator_test: "Clear steps, great for a class demo."
+      Approve from pro_test
+      Approve from student_test: "Worked on my first try."
+    hobby_test reviews own guide -> blocked: You cannot review your own guide.
+    student_test reviews again -> blocked: You already reviewed this guide.
+    Expert check for hobby_test before new votes:
+      Eligible voters N = 5, votes needed n = 5
+        STUDENT      1 of 1 votes, 1 approve
+        PROFESSIONAL 1 of 2 votes, 1 approve
+        EDUCATOR     1 of 2 votes, 1 approve
+      Quotas met: no, stratified approval rate p = 100.0%
+    Role: USER
+    admin and prof_sample approve the guide.
+    Expert check for hobby_test after new votes:
+      Eligible voters N = 5, votes needed n = 5
+        STUDENT      1 of 1 votes, 1 approve
+        PROFESSIONAL 2 of 2 votes, 2 approve
+        EDUCATOR     2 of 2 votes, 2 approve
+      Quotas met: yes, stratified approval rate p = 100.0%
+    Role: EXPERT (Approval rate 100.0%)
+
+[7. Registration (Sequence 1)]
+    Registered demo_newcomer as user #7
+    Logged in and picked niches [PETS, STUDIES]
+    Same username again -> blocked: That username or email is already taken.
+
+[8. Reports and admin management (Sequence 3 and 5)]
+    Open reports and edit requests:
+      #1 REPORT on "Automatic Plant Watering System" by educator_test: The pump model link in step 2 is broken. [OPEN]
+      #2 EDIT_REQUEST on "Door Sensor Alarm with Buzzer" by hobby_test: Please add a wiring diagram for the reed switch. [OPEN]
+      #3 REPORT on "Door Sensor Alarm with Buzzer" by student_test: Step 2 does not say which pin the buzzer uses. [OPEN]
+      #4 EDIT_REQUEST on "Door Sensor Alarm with Buzzer" by hobby_test: Please add a photo of the finished alarm. [OPEN]
+    admin resolves #3 -> RESOLVED, dismisses #4 -> DISMISSED
+    admin adds student_test as an expert -> EXPERT (Admin approved)
+    admin removes the expert -> USER
+    admin hides guide #11 -> HIDDEN
+    student_test tries to hide a guide -> blocked: Only admins can do this.
+    admin suspends demo_newcomer, login -> blocked: This account is suspended. Contact the admin.
+
+[9. Votes needed as the app grows (5% margin of error)]
+    Users N    Votes needed n
+         50    45
+        100    80
+        500    223
+       1000    286
+       5000    371
+      10000    385
+    Example quotas at N = 1000 (400 students, 300 professionals, 200 hobbyists, 100 educators):
+    115, 86, 58, 29 votes
+
+[Cleaning up]
+    Demo rows removed. The database is back to the seed data.

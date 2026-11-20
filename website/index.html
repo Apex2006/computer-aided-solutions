@@ -1,0 +1,661 @@
+<title>Computer-Aided Solutions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Download Computer-Aided Solutions for Windows: step-by-step DIY guides for everyday problems, rated by users and checked by experts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a parts bench. The hero sits on a breadboard dot grid with power rails;
+   the page then reads like one of the app's own guides: parts, steps, safety. */
+:root {
+  --bg: #F5F5F0;
+  --surface: #FFFFFF;
+  --sunk: #EEF0E9;
+  --ink: #1C2B1E;
+  --ink-2: #4F5C51;
+  --ink-3: #7D887E;
+  --line: #E0E4DA;
+  --green: #2E7D32;
+  --green-hover: #276D2B;
+  --green-ink: #FFFFFF;
+  --green-soft: #E6F2E6;
+  --dot: #C9D1C3;
+  --rail-red: #D7837B;
+  --rail-blue: #7FA2D6;
+  --risk-low: #2E7D32;
+  --risk-mid: #A15C00;
+  --risk-high: #C62828;
+  --band-bg: #17401C;
+  --band-ink: #F1F7F0;
+  --band-ink-2: #B9CDB9;
+  --band-line: #2D5A32;
+  --band-card: #1F4D25;
+  --band-accent: #8FD694;
+  --shadow: 0 1px 2px rgba(28, 43, 30, .06), 0 12px 32px -12px rgba(28, 43, 30, .22);
+  --chip-mix: 100%;
+
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --wrap: 1160px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1611; --surface: #161F18; --sunk: #1B261D; --ink: #E5EDE4; --ink-2: #AAB8AB; --ink-3: #7F8D80;
+    --line: #26332A; --green: #5DBB63; --green-hover: #73C878; --green-ink: #0C1A0E; --green-soft: #1C2E1F;
+    --dot: #2A372D; --rail-red: #8E4A45; --rail-blue: #4A6690;
+    --risk-low: #6CC572; --risk-mid: #E0A54A; --risk-high: #EF7B72;
+    --band-bg: #13291A; --band-ink: #E8F2E7; --band-ink-2: #A5BCA6; --band-line: #24442B; --band-card: #1A3721; --band-accent: #8FD694;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 14px 36px -14px rgba(0, 0, 0, .7);
+    --chip-mix: 45%;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1611; --surface: #161F18; --sunk: #1B261D; --ink: #E5EDE4; --ink-2: #AAB8AB; --ink-3: #7F8D80;
+  --line: #26332A; --green: #5DBB63; --green-hover: #73C878; --green-ink: #0C1A0E; --green-soft: #1C2E1F;
+  --dot: #2A372D; --rail-red: #8E4A45; --rail-blue: #4A6690;
+  --risk-low: #6CC572; --risk-mid: #E0A54A; --risk-high: #EF7B72;
+  --band-bg: #13291A; --band-ink: #E8F2E7; --band-ink-2: #A5BCA6; --band-line: #24442B; --band-card: #1A3721; --band-accent: #8FD694;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 14px 36px -14px rgba(0, 0, 0, .7);
+  --chip-mix: 45%;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--surface);
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--green); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; color: var(--ink); }
+p { margin: 0; }
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+
+/* ------------------------------------------------------------ buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 22px; border-radius: 10px;
+  font: 600 16px/1.2 var(--font-body);
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: background-color .15s, transform .15s, box-shadow .15s;
+}
+.btn-primary { background: var(--green); color: var(--green-ink); box-shadow: 0 6px 18px -8px var(--green); }
+.btn-primary:hover { background: var(--green-hover); transform: translateY(-1px); }
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+.btn-big { padding: 16px 26px; font-size: 17px; }
+.btn[aria-disabled="true"] { background: var(--sunk); color: var(--ink-3); box-shadow: none; cursor: not-allowed; transform: none; border-color: var(--line); }
+.btn-sm { padding: 9px 14px; font-size: 14px; border-radius: 8px; }
+
+/* ------------------------------------------------------------ header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); min-width: 0; }
+.brand img { width: 34px; height: 34px; border-radius: 8px; }
+.brand b { font: 700 16px/1.15 var(--font-body); display: block; white-space: nowrap; }
+.brand small { font-size: 11.5px; color: var(--ink-3); display: block; white-space: nowrap; }
+.top nav { display: flex; gap: 22px; margin-left: auto; }
+.top nav a { color: var(--ink-2); text-decoration: none; font-size: 15px; font-weight: 500; }
+.top nav a:hover { color: var(--green); }
+@media (max-width: 860px) { .top nav { display: none; } .top .btn { margin-left: auto; } }
+@media (max-width: 420px) { .brand small { display: none; } .top .btn span { display: none; } }
+
+/* ------------------------------------------------------------ hero */
+.hero {
+  position: relative;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, var(--dot) 1.3px, transparent 1.8px);
+  background-size: 20px 20px;
+  background-position: 10px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.rails { height: 22px; position: relative; border-top: 2px solid var(--rail-red); border-bottom: 2px solid var(--rail-blue); opacity: .7;
+  background: radial-gradient(circle, var(--dot) 1.6px, transparent 2.2px) 6px 50%/20px 100% repeat-x, var(--bg); }
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center;
+  padding-block: 72px 84px;
+}
+.hero-copy { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.hero h1 { font-size: clamp(2.5rem, 4.4vw + 1rem, 4.25rem); font-weight: 800; line-height: 1.02; letter-spacing: -.025em; }
+.hero h1 em { font-style: normal; color: var(--green); }
+.lede { font-size: 19px; color: var(--ink-2); max-width: 34em; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.spec-line { font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.spec-line span { display: inline-flex; align-items: center; gap: 6px; }
+.spec-line .icon { width: 15px; height: 15px; color: var(--green); }
+.hero-visual { position: relative; min-width: 0; }
+.float-chip {
+  position: absolute; left: -18px; bottom: -22px;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; box-shadow: var(--shadow); font-size: 14px; font-weight: 600; max-width: calc(100% - 8px);
+}
+.float-chip .icon { color: var(--green); }
+.float-chip small { display: block; font-weight: 400; color: var(--ink-3); font-size: 12.5px; }
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 48px 64px; }
+  .float-chip { left: 12px; }
+}
+
+/* ------------------------------------------------------------ app window frame (Windows style) */
+.window { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); max-width: 100%; }
+.titlebar { display: flex; align-items: center; gap: 8px; height: 32px; padding-left: 12px; background: var(--sunk); border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-2); }
+.titlebar img { width: 14px; height: 14px; border-radius: 3px; }
+.titlebar .ctl { margin-left: auto; display: flex; height: 100%; }
+.titlebar .ctl i { width: 44px; display: grid; place-items: center; }
+.titlebar .ctl svg { width: 10px; height: 10px; stroke: var(--ink-2); stroke-width: 1.2; fill: none; }
+
+/* ------------------------------------------------------------ sections */
+section { padding-block: 88px; }
+.head { display: flex; flex-direction: column; gap: 12px; max-width: 46em; margin-bottom: 44px; }
+.head h2 { font-size: clamp(1.9rem, 2.6vw + 1rem, 2.75rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+.head p { color: var(--ink-2); font-size: 18px; }
+@media (max-width: 640px) { section { padding-block: 64px; } }
+
+/* ------------------------------------------------------------ guides in the library */
+.guides { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1040px) { .guides { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .guides { grid-template-columns: minmax(0, 1fr); } }
+.guide {
+  --c: #2E7D32;
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+}
+.guide-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cat-tile {
+  width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--c) 14%, var(--surface));
+  color: color-mix(in srgb, var(--c) var(--chip-mix), var(--ink));
+}
+.cat-tile .icon { width: 20px; height: 20px; }
+.guide h3 { font: 700 17px/1.3 var(--font-body); }
+.cat { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--c) var(--chip-mix), var(--ink)); }
+.meta { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.pill { display: inline-flex; align-items: center; gap: 5px; font: 600 12px/1 var(--font-body); padding: 5px 9px; border-radius: 999px; white-space: nowrap;
+  color: var(--p); background: color-mix(in srgb, var(--p) 13%, var(--surface)); }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill.low { --p: var(--risk-low); } .pill.mid { --p: var(--risk-mid); } .pill.high { --p: var(--risk-high); }
+.status { font-size: 12.5px; color: var(--ink-3); display: flex; align-items: center; gap: 6px; }
+.status .icon { width: 15px; height: 15px; }
+.status.ok { color: var(--green); }
+.note { margin-top: 20px; font-size: 15px; color: var(--ink-3); }
+
+/* ------------------------------------------------------------ feature rows */
+.features { background: var(--surface); border-block: 1px solid var(--line); }
+.feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+.feature + .feature { margin-top: 96px; }
+.feature.flip .f-copy { order: 2; }
+.f-copy { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.f-copy h3 { font-size: clamp(1.6rem, 1.6vw + 1rem, 2.1rem); font-weight: 800; letter-spacing: -.015em; line-height: 1.12; }
+.f-copy p { color: var(--ink-2); }
+.f-detail { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.f-detail span { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); background: var(--sunk); border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; }
+.shot-narrow { max-width: 560px; justify-self: center; width: 100%; }
+@media (max-width: 900px) {
+  .feature { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .feature.flip .f-copy { order: 0; }
+  .feature + .feature { margin-top: 72px; }
+}
+.mini { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 96px; padding-top: 48px; border-top: 1px solid var(--line); }
+.mini div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mini .icon { width: 22px; height: 22px; color: var(--green); }
+.mini h4 { margin: 0; font: 700 17px/1.3 var(--font-body); }
+.mini p { color: var(--ink-2); font-size: 15.5px; }
+@media (max-width: 760px) { .mini { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 72px; } }
+
+/* ------------------------------------------------------------ expert band */
+.band { background: var(--band-bg); color: var(--band-ink); }
+.band h2, .band h3 { color: var(--band-ink); }
+.band .label { color: var(--band-accent); }
+.band .head p { color: var(--band-ink-2); }
+.expert-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+@media (max-width: 900px) { .expert-grid { grid-template-columns: minmax(0, 1fr); } }
+.flow { display: flex; flex-direction: column; gap: 0; }
+.flow div { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding-bottom: 22px; position: relative; }
+.flow div:not(:last-child)::after { content: ""; position: absolute; left: 16px; top: 34px; bottom: 4px; width: 2px; background: var(--band-line); }
+.flow b.n { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--band-card); border: 1px solid var(--band-line); font: 600 14px/1 var(--font-mono); color: var(--band-accent); }
+.flow h3 { font: 700 17px/1.35 var(--font-body); margin-bottom: 4px; }
+.flow p { color: var(--band-ink-2); font-size: 15.5px; }
+.calc { background: var(--band-card); border: 1px solid var(--band-line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 18px; }
+.calc h3 { font: 700 18px/1.3 var(--font-body); }
+.calc > p { color: var(--band-ink-2); font-size: 15px; }
+.formula { font-family: var(--font-mono); font-size: 15px; background: var(--band-bg); border: 1px solid var(--band-line); border-radius: 10px; padding: 12px 14px; color: var(--band-ink); overflow-x: auto; white-space: nowrap; }
+.formula small { color: var(--band-ink-2); font-size: 12.5px; }
+.calc label { font-size: 14px; color: var(--band-ink-2); display: flex; justify-content: space-between; gap: 12px; }
+.calc input[type=range] { width: 100%; accent-color: var(--band-accent); }
+.readout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.readout div { background: var(--band-bg); border: 1px solid var(--band-line); border-radius: 10px; padding: 12px; min-width: 0; }
+.readout b { display: block; font: 800 clamp(1.4rem, 1.2vw + 1rem, 1.9rem)/1.1 var(--font-display); color: var(--band-ink); font-variant-numeric: tabular-nums; }
+.readout span { font-size: 12.5px; color: var(--band-ink-2); }
+.calc .rule { font-size: 14px; color: var(--band-ink-2); }
+.calc .rule b { color: var(--band-accent); }
+.band .window { border-color: var(--band-line); margin-top: 48px; }
+
+/* ------------------------------------------------------------ install */
+.install-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: start; }
+@media (max-width: 900px) { .install-grid { grid-template-columns: minmax(0, 1fr); } }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.steps li::before { content: counter(s); width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--green); color: var(--green-ink); font: 800 20px/1 var(--font-display); }
+.steps h3 { font: 700 18px/1.3 var(--font-body); margin-bottom: 4px; }
+.steps p { color: var(--ink-2); font-size: 15.5px; }
+.steps .btn { margin-top: 14px; }
+.steps .alt-link { margin-top: 10px; font-size: 14px; color: var(--ink-3); }
+kbd { font-family: var(--font-mono); font-size: 13px; background: var(--sunk); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; color: var(--ink); white-space: nowrap; }
+.specs { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.specs h3 { font: 700 15px/1 var(--font-body); padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--sunk); display: flex; align-items: center; gap: 8px; }
+.specs h3 .icon { color: var(--green); width: 18px; height: 18px; }
+.specs dl { margin: 0; }
+.specs dl div { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+.specs dl div:last-child { border-bottom: 0; }
+.specs dt { color: var(--ink-3); }
+.specs dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+.specs dd.mono { font-family: var(--font-mono); font-size: 13.5px; }
+
+/* ------------------------------------------------------------ faq */
+.faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 800px) { .faq-list { grid-template-columns: minmax(0, 1fr); } }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 20px; align-self: start; }
+summary { cursor: pointer; list-style: none; font-weight: 600; padding: 18px 0; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary .icon { transition: transform .2s; color: var(--ink-3); }
+details[open] summary .icon { transform: rotate(90deg); }
+details p { color: var(--ink-2); font-size: 15.5px; padding-bottom: 18px; }
+
+/* ------------------------------------------------------------ closing + footer */
+.closing { text-align: left; }
+.closing .box { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 36px; }
+.closing h2 { font-size: clamp(1.7rem, 2vw + 1rem, 2.3rem); font-weight: 800; letter-spacing: -.02em; }
+.closing p { color: var(--ink-2); margin-top: 8px; }
+@media (max-width: 760px) { .closing .box { grid-template-columns: minmax(0, 1fr); padding: 26px; } }
+footer { border-top: 1px solid var(--line); padding-block: 32px 40px; font-size: 14px; color: var(--ink-3); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+footer b { color: var(--ink-2); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3 M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M8 21h8 M12 17v4"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M12 20h.01 M2 8.82a15 15 0 0 1 20 0 M5 12.86a10 10 0 0 1 14 0 M8.5 16.43a5 5 0 0 1 7 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20Z M12 6v6l4 2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path d="M11 3a8 8 0 1 0 0 16 8 8 0 1 0 0-16Z M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M12 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8Z M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z M3 8l9 5 9-5 M12 13v8"/></symbol>
+  <symbol id="c-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></symbol>
+  <symbol id="c-sprout" viewBox="0 0 24 24"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3 M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4 M5 21h14"/></symbol>
+  <symbol id="c-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8 M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="c-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></symbol>
+  <symbol id="c-lock" viewBox="0 0 24 24"><path d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="c-heart" viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></symbol>
+  <symbol id="c-paw" viewBox="0 0 24 24"><path d="M9 4a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M16 8a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M18 16a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></symbol>
+  <symbol id="w-min" viewBox="0 0 10 10"><path d="M0 5h10"/></symbol>
+  <symbol id="w-max" viewBox="0 0 10 10"><path d="M.5.5h9v9h-9z"/></symbol>
+  <symbol id="w-close" viewBox="0 0 10 10"><path d="M0 0l10 10M10 0 0 10"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Computer-Aided Solutions, back to top">
+      <img src="img/app-icon.png" alt="" width="34" height="34">
+      <span><b>Computer-Aided Solutions</b><small>Everyday Problems Repository</small></span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#features">Features</a>
+      <a href="#guides">Guides</a>
+      <a href="#experts">Experts</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" data-download href="#install"><svg class="icon"><use href="#i-download"/></svg><span>Download</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="rails" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="label">Desktop app for Windows · v1.0.0</span>
+        <h1>Everyday problems, solved with <em>a little tech.</em></h1>
+        <p class="lede">Step-by-step DIY guides for sensors, Arduino and smart home builds, from an automatic plant waterer to a smart power strip. Written by the community, rated by users, and checked by experts.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-big" data-download href="#install"><svg class="icon"><use href="#i-download"/></svg><span>Download for Windows</span></a>
+          <a class="btn btn-ghost btn-big" href="#features">See how it works</a>
+        </div>
+        <div class="spec-line">
+          <span><svg class="icon"><use href="#i-monitor"/></svg>Windows 10 and 11</span>
+          <span><svg class="icon"><use href="#i-box"/></svg>44.2 MB</span>
+          <span><svg class="icon"><use href="#i-check"/></svg>No Java needed</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="window">
+          <div class="titlebar"><img src="img/app-icon.png" alt="">Computer-Aided Solutions
+            <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+          </div>
+          <img src="img/guide-page.webp" width="1366" height="768" alt="The guide page for Smart Power Strip with Usage Monitor, showing a 100% approval rate, the safety notes and the expert review.">
+        </div>
+        <div class="float-chip">
+          <svg class="icon"><use href="#i-shield"/></svg>
+          <span>Approved by an expert<small>High-risk guides wait for one</small></span>
+        </div>
+      </div>
+    </div>
+    <div class="rails" aria-hidden="true"></div>
+  </div>
+
+  <section id="guides">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">Already in the library</span>
+        <h2>Small builds that fix real annoyances at home.</h2>
+        <p>Every guide lists its parts, an estimated cost in pesos, how hard it is, and how risky it is to build. These starter guides come with the app. Anyone with an account can add more.</p>
+      </div>
+      <div class="guides">
+        <article class="guide" style="--c:#2E7D32">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-sprout"/></svg></span><span class="pill low">Low risk</span></div>
+          <div><h3>Automatic Plant Watering System</h3><span class="cat">Gardening and Planting</span></div>
+          <div class="meta"><span>₱850</span><span>Beginner</span></div>
+        </article>
+        <article class="guide" style="--c:#1D4FA8">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-lock"/></svg></span><span class="pill low">Low risk</span></div>
+          <div><h3>Door Sensor Alarm with Buzzer</h3><span class="cat">Home Security</span></div>
+          <div class="meta"><span>₱600</span><span>Beginner</span></div>
+        </article>
+        <article class="guide" style="--c:#A15C00">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-zap"/></svg></span><span class="pill high">High risk</span></div>
+          <div><h3>Smart Power Strip with Usage Monitor</h3><span class="cat">Energy Saving</span></div>
+          <span class="status ok"><svg class="icon"><use href="#i-shield"/></svg>Approved by an expert</span>
+          <div class="meta"><span>₱1,450</span><span>Intermediate</span></div>
+        </article>
+        <article class="guide" style="--c:#C2410C">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-flame"/></svg></span><span class="pill high">High risk</span></div>
+          <div><h3>Rice Cooker Auto-Off Timer</h3><span class="cat">Food and Cooking</span></div>
+          <span class="status"><svg class="icon"><use href="#i-clock"/></svg>Waiting for an expert</span>
+          <div class="meta"><span>₱900</span><span>Intermediate</span></div>
+        </article>
+        <article class="guide" style="--c:#A15C00">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-zap"/></svg></span><span class="pill mid">Moderate risk</span></div>
+          <div><h3>Motion-Activated Hallway Light</h3><span class="cat">Energy Saving</span></div>
+          <div class="meta"><span>₱700</span><span>Beginner</span></div>
+        </article>
+        <article class="guide" style="--c:#B4235A">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-heart"/></svg></span><span class="pill mid">Moderate risk</span></div>
+          <div><h3>Bedroom Air Quality Monitor</h3><span class="cat">Health and Wellness</span></div>
+          <div class="meta"><span>₱1,200</span><span>Intermediate</span></div>
+        </article>
+        <article class="guide" style="--c:#1F6F63">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-house"/></svg></span><span class="pill low">Low risk</span></div>
+          <div><h3>Laundry Done Notifier</h3><span class="cat">Housekeeping</span></div>
+          <div class="meta"><span>₱550</span><span>Beginner</span></div>
+        </article>
+        <article class="guide" style="--c:#6B5B3E">
+          <div class="guide-top"><span class="cat-tile"><svg class="icon"><use href="#c-paw"/></svg></span><span class="pill low">Low risk</span></div>
+          <div><h3>Pet Water Bowl Refill Alert</h3><span class="cat">Pets</span></div>
+          <div class="meta"><span>₱500</span><span>Beginner</span></div>
+        </article>
+      </div>
+      <p class="note">Eight categories: Food and Cooking, Gardening and Planting, Studies and Productivity, Housekeeping, Energy Saving, Home Security, Health and Wellness, and Pets.</p>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">What you can do</span>
+        <h2>Built for following along with a soldering iron in one hand.</h2>
+      </div>
+
+      <div class="feature">
+        <div class="f-copy">
+          <span class="label">Step by step</span>
+          <h3>One step on screen at a time.</h3>
+          <p>Tick off the parts you already have, then work through the build. Each step can carry its own photo. Press Done, next step and the next one slides in, with a progress bar so you always know how far along you are. Prefer to skim? Switch to All steps.</p>
+          <div class="f-detail"><span>Photo per step</span><span>Wiring schematic</span><span>Video link</span><span>Parts checklist</span></div>
+        </div>
+        <div class="window shot-narrow">
+          <div class="titlebar"><img src="img/app-icon.png" alt="">Smart Power Strip with Usage Monitor
+            <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+          </div>
+          <img src="img/step-player.webp" width="708" height="628" alt="Step 1 of 5 of the power strip guide, with a layout illustration and the buttons Previous, Skip for now and Done, next step.">
+        </div>
+      </div>
+
+      <div class="feature flip">
+        <div class="f-copy">
+          <span class="label">Made for you</span>
+          <h3>A home page that knows what you tinker with.</h3>
+          <p>When you sign up, pick who you are (Student, Professional, Hobbyist or Educator) and the topics you care about. Home then recommends guides from those topics, ranked by approval rate and expert badges.</p>
+          <div class="f-detail"><span>4 identity groups</span><span>8 categories</span><span>Guest mode</span></div>
+        </div>
+        <div class="window">
+          <div class="titlebar"><img src="img/app-icon.png" alt="">Computer-Aided Solutions
+            <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+          </div>
+          <img src="img/onboarding.webp" width="1366" height="768" alt="The sign-up step Tell us about you, with identity choices and niche chips.">
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="f-copy">
+          <span class="label">Share a fix</span>
+          <h3>Write your own guide on one screen.</h3>
+          <p>Add a parts list, safety precautions, and steps with a photo each, plus the estimated cost, difficulty and risk. Attach a schematic and a video link. Save a draft whenever you like and submit when it is ready.</p>
+          <div class="f-detail"><span>Save draft</span><span>Pictures shrink automatically</span><span>Up to 5 MB of pictures</span></div>
+        </div>
+        <div class="window">
+          <div class="titlebar"><img src="img/app-icon.png" alt="">Computer-Aided Solutions
+            <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+          </div>
+          <img src="img/builder.webp" width="1366" height="768" alt="The Edit Guide screen with Basics, Details, parts and steps fields.">
+        </div>
+      </div>
+
+      <div class="feature flip">
+        <div class="f-copy">
+          <span class="label">Rate and discuss</span>
+          <h3>Approve, disapprove, or just comment.</h3>
+          <p>Votes and comments are separate. Ask the author a question without voting, or approve a guide without writing anything. Change your mind later and take your vote back with one click.</p>
+          <div class="f-detail"><span>One vote per person</span><span>Approval rate on every guide</span></div>
+        </div>
+        <div class="window">
+          <div class="titlebar"><img src="img/app-icon.png" alt="">Computer-Aided Solutions
+            <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+          </div>
+          <img src="img/vote.webp" width="1366" height="768" alt="A guide page after voting, showing 100% approval from 4 votes and the Approved button selected.">
+        </div>
+      </div>
+
+      <div class="mini">
+        <div><svg class="icon"><use href="#i-search"/></svg><h4>Search by part</h4><p>Look up guides by name or by component, like "soil sensor" or "ESP32".</p></div>
+        <div><svg class="icon"><use href="#i-flag"/></svg><h4>Report or request an edit</h4><p>Spot a mistake? Report it or ask the author for a change. Admins see every report.</p></div>
+        <div><svg class="icon"><use href="#i-user"/></svg><h4>One account, any PC</h4><p>The library lives in the cloud, so your guides, votes and profile follow you to any computer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experts" class="band">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">Safety first</span>
+        <h2>Anything that touches 230V waits for an expert.</h2>
+        <p>Guides marked High risk do not go live right away. They wait in Expert Drafts until an expert approves them or sends them back to the author.</p>
+      </div>
+      <div class="expert-grid">
+        <div class="flow">
+          <div><b class="n">1</b><span><h3>The author submits a high-risk guide</h3><p>For example, a fan timer that switches mains power. It is saved as Pending, not published.</p></span></div>
+          <div><b class="n">2</b><span><h3>An expert reviews it</h3><p>Experts see it in Expert Drafts, confirm the risk level and approve (Y) or return it (N). The first decision counts.</p></span></div>
+          <div><b class="n">3</b><span><h3>Readers see who checked it</h3><p>Approved guides carry an "Approved by an expert" badge with the reviewer's name and date.</p></span></div>
+        </div>
+        <div class="calc">
+          <h3>How someone becomes an expert</h3>
+          <p>Experts are earned, not picked. Your guides need enough votes from every identity group, and the bar rises as more people use the app. Admins can also add experts directly, such as professors.</p>
+          <div class="formula">n = ⌈ N ÷ (1 + N × 0.05²) ⌉ <small>&nbsp;Slovin's formula, 5% margin of error</small></div>
+          <label for="users">Registered users (N)<b id="nOut">195</b></label>
+          <input id="users" type="range" min="0" max="100" step="1" value="43" aria-describedby="readout">
+          <div class="readout" id="readout" aria-live="polite">
+            <div><b id="vOut">132</b><span>votes needed (n)</span></div>
+            <div><b>80%</b><span>approval to earn the badge</span></div>
+            <div><b>66.7%</b><span>below this, it is removed</span></div>
+          </div>
+          <p class="rule">The n votes are split across Students, Professionals, Hobbyists and Educators in proportion to each group's size. Admin-added experts show <b>Admin approved</b> instead of a rate.</p>
+        </div>
+      </div>
+      <div class="window">
+        <div class="titlebar"><img src="img/app-icon.png" alt="">Computer-Aided Solutions
+          <span class="ctl" aria-hidden="true"><i><svg><use href="#w-min"/></svg></i><i><svg><use href="#w-max"/></svg></i><i><svg><use href="#w-close"/></svg></i></span>
+        </div>
+        <img src="img/expert-drafts.webp" width="1366" height="768" alt="The Expert Drafts screen listing Rice Cooker Auto-Off Timer and Electric Fan Auto-Off Timer, both high risk, each with a Review button.">
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">Install</span>
+        <h2>Up and running in about a minute.</h2>
+        <p>Everything the app needs is inside the installer, so the PC does not need Java, NetBeans or an administrator password.</p>
+      </div>
+      <div class="install-grid">
+        <ol class="steps">
+          <li><span><h3>Download the installer</h3><p>You get one file, Computer-Aided Solutions Setup.exe. If your browser says it is not commonly downloaded, choose <kbd>Keep</kbd>.</p>
+            <a class="btn btn-primary" data-download href="#install"><svg class="icon"><use href="#i-download"/></svg><span>Download for Windows</span></a>
+            <p class="alt-link">Download not starting? <a href="https://drive.google.com/file/d/1pLtYCCCtN3uKurvGkObFAAIbCyAuvquS/view?usp=sharing" target="_blank" rel="noopener">Open it in Google Drive</a> and click the download icon.</p></span></li>
+          <li><span><h3>Open it</h3><p>Double-click the file. If a blue "Windows protected your PC" box appears, click <kbd>More info</kbd> and then <kbd>Run anyway</kbd>. Windows shows this for new apps that are not signed by a big company.</p></span></li>
+          <li><span><h3>Next, Install, Finish</h3><p>The app opens at the login screen. After that, open it from the green icon on your Desktop or in the Start menu.</p></span></li>
+        </ol>
+        <div class="specs">
+          <h3><svg class="icon"><use href="#i-box"/></svg>What you are downloading</h3>
+          <dl>
+            <div><dt>File</dt><dd class="mono">Computer-Aided Solutions Setup.exe</dd></div>
+            <div><dt>Size</dt><dd>44.2 MB download, about 75 MB installed</dd></div>
+            <div><dt>Version</dt><dd>1.0.0</dd></div>
+            <div><dt>Works on</dt><dd>Windows 10 and 11, 64-bit</dd></div>
+            <div><dt>Needs</dt><dd>An internet connection to reach the guide library</dd></div>
+            <div><dt>Installs to</dt><dd class="mono">AppData\Local\Programs</dd></div>
+            <div><dt>Remove it</dt><dd>Settings, Apps, Installed apps, Uninstall</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top: 0">
+    <div class="wrap">
+      <div class="head" style="margin-bottom: 28px">
+        <span class="label">Questions</span>
+        <h2>Before you ask.</h2>
+      </div>
+      <div class="faq-list">
+        <details><summary>Why does Windows warn me before it opens?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>Windows SmartScreen warns about any new app that has not been signed with a paid certificate. Click More info, then Run anyway. You only see it once.</p></details>
+        <details><summary>Do I need an account?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>You can click Continue as Guest to read every published guide. Create a free account to vote, comment, report problems and write your own guides.</p></details>
+        <details><summary>Is this a website?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>No. It is a desktop app built with JavaFX. This page only introduces it and hands out the installer. The guides live in a cloud database, so everyone sees the same library from any PC.</p></details>
+        <details><summary>Does it work on a Mac or a phone?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>Not yet. This version is for Windows 10 and 11 only.</p></details>
+        <details><summary>How do I update to a newer version?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>Download the new installer and run it. It replaces the old version and keeps your shortcuts. Your account and guides are in the cloud, so nothing is lost.</p></details>
+        <details><summary>How do I uninstall it?<svg class="icon"><use href="#i-chevron"/></svg></summary>
+          <p>Open Settings, then Apps, then Installed apps. Find Computer-Aided Solutions and click Uninstall. Your account stays in the cloud if you install it again later.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" style="padding-top: 0">
+    <div class="wrap">
+      <div class="box">
+        <div><h2>Got a problem a little tech could fix?</h2><p>Download the app, find a guide, and build it this weekend.</p></div>
+        <a class="btn btn-primary btn-big" data-download href="#install"><svg class="icon"><use href="#i-download"/></svg><span>Download for Windows</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>Repository of Computer-Aided Solutions for Common Everyday Problems</b><br>A Software Design project by Luis Gabriel Santiago and team.</span>
+    <span>Icons by Lucide (ISC License)</span>
+  </div>
+</footer>
+
+<script>
+// Paste the installer's direct download link here. Leave it empty to show "coming soon".
+const DOWNLOAD_URL = "https://drive.usercontent.google.com/download?id=1pLtYCCCtN3uKurvGkObFAAIbCyAuvquS&export=download";
+
+(function wireDownloads() {
+  document.querySelectorAll("[data-download]").forEach(function (a) {
+    var label = a.querySelector("span");
+    if (DOWNLOAD_URL) {
+      a.href = DOWNLOAD_URL;
+      a.target = "_blank";
+      a.rel = "noopener";
+      return;
+    }
+    a.setAttribute("aria-disabled", "true");
+    if (label && label.textContent.indexOf("Windows") !== -1) {
+      label.textContent = "Download coming soon";
+    }
+    a.addEventListener("click", function (e) { e.preventDefault(); });
+  });
+})();
+
+(function expertCalculator() {
+  var slider = document.getElementById("users");
+  var nOut = document.getElementById("nOut");
+  var vOut = document.getElementById("vOut");
+  // Slider runs on a log scale from 10 to 10,000 users.
+  function usersFor(pos) { return Math.round(Math.pow(10, 1 + 3 * pos / 100)); }
+  function votesNeeded(N) { return Math.ceil(400 * N / (400 + N)); }
+  function update() {
+    var N = usersFor(Number(slider.value));
+    nOut.textContent = N.toLocaleString("en-PH");
+    vOut.textContent = votesNeeded(N).toLocaleString("en-PH");
+  }
+  slider.addEventListener("input", update);
+  update();
+})();
+</script>

@@ -1,0 +1,12 @@
+# Database settings for Computer-Aided Solutions (TiDB Cloud Starter).
+# Copy the host and your user prefix from TiDB Cloud: your instance > Connect.
+db.host=gateway01.ap-southeast-1.prod.aws.tidbcloud.com
+db.port=4000
+db.name=cas_db
+# YOUR_PREFIX is the part before .root in your TiDB user name
+db.user=YOUR_PREFIX.cas_app
+# The cas_app password you set in schema.sql
+db.password=CasApp@2026
+# TiDB Cloud requires an encrypted, verified connection.
+# For a MySQL server on your own laptop, use PREFERRED instead.
+db.sslMode=VERIFY_IDENTITY

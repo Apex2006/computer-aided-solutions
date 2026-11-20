@@ -1,0 +1,26 @@
+Computer-Aided Solutions (desktop version for Windows)
+@author Luis Gabriel Santiago
+
+HOW TO USE ON ANY WINDOWS PC
+  1. Copy this whole folder to the PC (for example into Documents).
+  2. Double-click "Create desktop shortcut.vbs". It adds a
+     "Computer-Aided Solutions" icon to the Desktop and the Start menu.
+  3. Open the app from that icon. It needs internet to reach the database.
+
+  You can also start it any time by double-clicking
+  "Computer-Aided Solutions.vbs" in this folder.
+
+WHAT IS IN THIS FOLDER
+  runtime\        Java 21 with JavaFX, so the PC needs no Java or NetBeans
+  app\            the app and its two libraries (MySQL driver, BCrypt)
+  db.properties   the TiDB Cloud address and the app's database login
+  cas.ico         the app icon
+
+KEEP IT PRIVATE
+  db.properties holds the database password. Share this folder only with
+  your group, not in public chats.
+
+IF WINDOWS WARNS ABOUT THE .vbs FILE
+  Windows may ask before running a script that came from a download or
+  another PC. Click "Open" or "Run". If SmartScreen shows "Windows
+  protected your PC", click "More info" and then "Run anyway".
